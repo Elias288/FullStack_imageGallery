@@ -1,5 +1,37 @@
-@baseUrl = http://localhost:3000
+@baseUrl = http://localhost:3000/api
+@user_name = eleli
+@passwd = pass123
 
-### test
+### Create user
 
-GET {{baseUrl}}/api HTTP/1.1
+Post {{baseUrl}}/user HTTP/1.1
+content-type: application/json
+
+{
+    "userName": "{{user_name}}",
+    "password": "{{passwd}}"
+}
+
+
+### Login
+
+# @name loginRequest
+POST {{baseUrl}}/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "userName": "{{user_name}}",
+    "password": "{{passwd}}"
+}
+
+### Acces token
+
+@token = Bearer {{loginRequest.response.body.access_token}}
+
+### List users
+GET {{baseUrl}}/user HTTP/1.1
+Authorization: {{token}}
+
+### Delete user
+DELETE {{baseUrl}}/user/3 HTTP/1.1
+Authorization: {{token}}
