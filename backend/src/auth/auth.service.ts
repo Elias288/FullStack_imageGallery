@@ -21,7 +21,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const tokenData = { id: user.id, userName: user.userName };
+    const tokenData = { userId: user.userId, userName: user.userName };
     return {
       access_token: await this.jwtService.signAsync(tokenData),
     };

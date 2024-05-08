@@ -29,7 +29,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findOne(+id);
   }
 
   // @UseGuards(AuthGuard)
@@ -41,6 +41,6 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+    return this.userService.remove(+id);
   }
 }

@@ -1,18 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string;
+  userId: number;
 
   @Column()
   userName: string;
 
   @Column()
   password: string;
-
-  constructor(user: CreateUserDto) {
-    Object.assign(this, user);
-  }
 }
