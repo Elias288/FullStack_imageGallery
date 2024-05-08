@@ -2,9 +2,13 @@
 @user_name = eleli
 @passwd = pass123
 
+### Version
+
+GET {{baseUrl}}/version HTTP/1.1
+
 ### Create user
 
-Post {{baseUrl}}/user HTTP/1.1
+POST {{baseUrl}}/user HTTP/1.1
 content-type: application/json
 
 {
