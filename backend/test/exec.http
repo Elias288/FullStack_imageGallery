@@ -29,9 +29,39 @@ content-type: application/json
 @token = Bearer {{loginRequest.response.body.access_token}}
 
 ### List users
+
 GET {{baseUrl}}/user HTTP/1.1
 Authorization: {{token}}
 
 ### Delete user
-DELETE {{baseUrl}}/user/3 HTTP/1.1
+
+DELETE {{baseUrl}}/user/4 HTTP/1.1
+Authorization: {{token}}
+
+
+
+
+### Create file
+
+POST {{baseUrl}}/images HTTP/1.1
+content-type: application/json
+Authorization: {{token}}
+
+{
+    "path": "/path/to/image2"
+}
+
+### List files
+
+GET {{baseUrl}}/images HTTP/1.1
+Authorization: {{token}}
+
+### Update file
+
+PATCH {{baseUrl}}/images/1 HTTP/1.1
+Authorization: {{token}}
+
+### Delete file
+
+DELETE  {{baseUrl}}/images/1 HTTP/1.1
 Authorization: {{token}}

@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,6 +16,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class UserController {
   constructor(private readonly userService: UsersService) {}
 
+  // temporal
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -22,15 +24,17 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll(@Res() res: any) {
+    const { user_id } = res.req.user;
+    await this.userService.verifyUser(user_id);
+    return res.send(await this.userService.findAll());
   }
 
-  @UseGuards(AuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
+  // @UseGuards(AuthGuard)
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.userService.findOne(+id);
+  // }
 
   // @UseGuards(AuthGuard)
   // @Patch(':id')
@@ -40,7 +44,9 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async remove(@Res() res: any, @Param('id') id: string) {
+    const { user_id } = res.req.user;
+    await this.userService.verifyUser(user_id);
+    return res.send(await this.userService.remove(+id));
   }
 }

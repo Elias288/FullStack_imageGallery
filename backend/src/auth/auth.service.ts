@@ -15,10 +15,13 @@ export class AuthService {
     password: string,
   ): Promise<{ access_token: string }> {
     const user = await this.usersService.findByName(userName);
+    if (!user) {
+      throw new UnauthorizedException('Usuario o contraseña erróneos');
+    }
 
     const isPassword = await bcrypt.compare(password, user.password);
     if (!isPassword) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Usuario o contraseña erróneos');
     }
 
     const tokenData = { userId: user.userId, userName: user.userName };

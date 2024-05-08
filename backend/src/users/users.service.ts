@@ -1,6 +1,9 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -13,7 +16,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const { userName, password } = createUserDto;
 
     const existingUser = await this.findByName(userName);
@@ -29,7 +32,7 @@ export class UsersService {
     return user;
   }
 
-  findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
@@ -47,5 +50,13 @@ export class UsersService {
 
   async remove(userId: number) {
     return this.usersRepository.delete(userId);
+  }
+
+  async verifyUser(userId: number) {
+    const existingUser = await this.findOne(userId);
+    if (!existingUser) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    return existingUser;
   }
 }
