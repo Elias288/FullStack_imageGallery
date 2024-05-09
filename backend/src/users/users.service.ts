@@ -2,22 +2,36 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private configService: ConfigService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { userName, password } = createUserDto;
+    const { userName, password, ownerToken } = createUserDto;
+
+    console.log(ownerToken);
+
+    try {
+      if (ownerToken !== this.configService.getOrThrow('OWNER_TOKEN')) {
+        throw new Error('invalid token');
+      }
+    } catch (error) {
+      console.log(error);
+      throw new UnauthorizedException('Owner token invalido');
+    }
 
     const existingUser = await this.findByName(userName);
     if (existingUser) {

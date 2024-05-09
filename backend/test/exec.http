@@ -1,3 +1,5 @@
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
 @baseUrl = http://localhost:3000/api
 @user_name = eleli
 @passwd = pass123
@@ -7,13 +9,15 @@
 GET {{baseUrl}}/version HTTP/1.1
 
 ### Create user
+# @prompt owner_token
 
 POST {{baseUrl}}/user HTTP/1.1
 content-type: application/json
 
 {
     "userName": "{{user_name}}",
-    "password": "{{passwd}}"
+    "password": "{{passwd}}",
+    "ownerToken": "{{owner_token}}"
 }
 
 
@@ -39,7 +43,7 @@ Authorization: {{token}}
 
 ### Delete user
 
-DELETE {{baseUrl}}/user/4 HTTP/1.1
+DELETE {{baseUrl}}/user/2 HTTP/1.1
 Authorization: {{token}}
 
 
