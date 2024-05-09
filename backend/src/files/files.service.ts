@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
 import { UsersService } from 'src/users/users.service';
+import { TagService } from 'src/tag/tag.service';
 
 @Injectable()
 export class FilesService {
@@ -12,6 +13,7 @@ export class FilesService {
     @InjectRepository(File)
     private fileRepository: Repository<File>,
     private readonly userService: UsersService,
+    private readonly tagService: TagService,
   ) {}
 
   async create(user_id: number, createImageDto: CreateFileDto) {
@@ -34,19 +36,50 @@ export class FilesService {
 
   async findAll(userId: number) {
     await this.userService.verifyUser(userId);
-    const res = await this.fileRepository.find({ where: { userId } });
+    const res = await this.fileRepository.find({
+      relations: { tags: true },
+      where: { userId },
+    });
     if (!res) return [];
     return res;
   }
 
   async findOne(fileId: number, userId: number) {
     await this.userService.verifyUser(userId);
-    return this.fileRepository.findOne({ where: { userId, fileId } });
+    return this.fileRepository.findOne({
+      where: { userId, fileId },
+      relations: { tags: true },
+    });
   }
 
   async findByPath(path: string, userId: number) {
     await this.userService.verifyUser(userId);
-    return await this.fileRepository.findOne({ where: { userId, path } });
+    return await this.fileRepository.findOne({
+      where: { userId, path },
+      relations: { tags: true },
+    });
+  }
+
+  async pushTag(userId: number, tagId: number, fileId: number) {
+    const tag = await this.tagService.findById(tagId);
+    const file = await this.findOne(fileId, userId);
+
+    return await this.fileRepository
+      .createQueryBuilder()
+      .relation(File, 'tags')
+      .of(file)
+      .add(tag);
+  }
+
+  async removeTag(userId: number, tagId: number, fileId: number) {
+    const tag = await this.tagService.findById(tagId);
+    const file = await this.findOne(fileId, userId);
+
+    return await this.fileRepository
+      .createQueryBuilder()
+      .relation(File, 'tags')
+      .of(file)
+      .remove(tag);
   }
 
   async update(fileId: number, updateImageDto: UpdateFileDto, userId: number) {

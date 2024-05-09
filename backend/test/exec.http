@@ -47,25 +47,95 @@ Authorization: {{token}}
 
 ### Create file
 
-POST {{baseUrl}}/images HTTP/1.1
+POST {{baseUrl}}/files HTTP/1.1
 content-type: application/json
 Authorization: {{token}}
 
 {
-    "path": "/path/to/image2"
+    "path": "/path/to/image3"
+}
+
+### Get file
+
+GET {{baseUrl}}/files/2 HTTP/1.1
+Authorization: {{token}}
+
+
+### Get file by path
+
+GET {{baseUrl}}/files/path HTTP/1.1
+Authorization: {{token}}
+content-type: application/json
+
+{
+    "path":"/path/to/image2"
 }
 
 ### List files
 
-GET {{baseUrl}}/images HTTP/1.1
+GET {{baseUrl}}/files HTTP/1.1
 Authorization: {{token}}
+
+### Push tag
+
+PATCH {{baseUrl}}/files/pushTag/1  HTTP/1.1
+Authorization: {{token}}
+content-type: application/json
+
+{
+    "tagId": "2"
+}
+
+### Remove tag
+
+PATCH {{baseUrl}}/files/removeTag/1  HTTP/1.1
+Authorization: {{token}}
+content-type: application/json
+
+{
+    "tagId": "2"
+}
 
 ### Update file
 
-PATCH {{baseUrl}}/images/1 HTTP/1.1
+PATCH {{baseUrl}}/files/1 HTTP/1.1
 Authorization: {{token}}
 
 ### Delete file
 
-DELETE  {{baseUrl}}/images/1 HTTP/1.1
+DELETE  {{baseUrl}}/files/3 HTTP/1.1
+Authorization: {{token}}
+
+
+
+
+### Create tag
+
+POST {{baseUrl}}/tag HTTP/1.1
+content-type: application/json
+Authorization: {{token}}
+
+{
+    "name": "cat3",
+    "type": "type3"
+}
+
+### List tags
+
+GET {{baseUrl}}/tag HTTP/1.1
+Authorization: {{token}}
+
+### Update tag
+
+PATCH  {{baseUrl}}/tag/1 HTTP/1.1
+content-type: application/json
+Authorization: {{token}}
+
+{
+    "name": "cat1"
+}
+
+### Delete tag
+
+DELETE {{baseUrl}}/tag/3 HTTP/1.1
 Authorization: {{token}}

@@ -16,7 +16,7 @@ import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('images')
+@Controller('files')
 export class ImagesController {
   constructor(private readonly filesService: FilesService) {}
 
@@ -62,6 +62,30 @@ export class ImagesController {
     return res.send(
       await this.filesService.update(+id, updateImageDto, userId),
     );
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('pushTag/:id')
+  async pushTag(
+    @Res() res: any,
+    @Param('id') fileId: string,
+    @Body() tagIdBody: { tagId: string },
+  ) {
+    const { userId } = res.req.user;
+    const { tagId } = tagIdBody;
+    return res.send(await this.filesService.pushTag(userId, +tagId, +fileId));
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('removeTag/:id')
+  async removeTag(
+    @Res() res: any,
+    @Param('id') fileId: string,
+    @Body() tagIdBody: { tagId: string },
+  ) {
+    const { userId } = res.req.user;
+    const { tagId } = tagIdBody;
+    return res.send(await this.filesService.removeTag(userId, +tagId, +fileId));
   }
 
   @UseGuards(AuthGuard)

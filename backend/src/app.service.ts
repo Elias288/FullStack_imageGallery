@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-const VERSION = '0.0.6';
+const VERSION = '0.1.0';
 
 @Injectable()
 export class AppService {
