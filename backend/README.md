@@ -29,45 +29,40 @@
 ## Installation
 
 ```bash
-$ npm install
+npm install
 ```
+
+## Environment
+
+Para el funcionamiento de la API es necesario definir las variables de entorno necesarios para el funcionamiento
+
+Para su configuración se proporcionó un [.env.template](./.env.template) el cual debe ser clonado y modificar el nombre a `.env`.
+
+En el se encontrará:
+
+- `PORT`: El puerto de la API.
+- `SECRET`: La variable secret para la generación del JWT.
+- `OWNER_TOKEN`: token que permite acciones únicas para el administrador.
+- `DB_HOST`: Host de la base de datos.
+- `DB_USER`: El usuario que utilizará la API para acceder a la base de datos.
+- `DB_PASSWORD`: Contraseña del usuario.
+- `DB_ROOT_PASSWORD`: Contraseña del usuario root.
+- `DB_NAME`: Nombre de la base de datos (por defecto imageGalleryDB)
+- `DB_PORT`: Puerto de la base de datos (por defecto 3306)
+
+## Configuració de la Base de datos
+
+Antes de poder ejecutar la API es necesario [configurar la base de datos](../database/README.MD).
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+npm run start
 
 # watch mode
-$ npm run start:dev
+npm run start:dev
 
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

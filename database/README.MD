@@ -20,7 +20,15 @@ podman run -d \
 docker.io/library/mariadb
 ```
 
-### Herramientas útiles
+- `-p <port>:3306`: Configura el puerto de salida del contenedor.
+- `-v imageGallery_volumen:/var/lib/mysql`: Define el volumen del contenedor para almacenar la base de datos.
+- `-e MYSQL_USER=<user>`: Define un usuario para que la api pueda utilizar la base de datos.
+- `-e MYSQL_PASSWORD=<pass>`: Define la contraseña del usuario.
+- `-e MYSQL_ROOT_PASSWORD=<root_pass>`: Define la contraseña del usuario root.
+- `--name imageGallery_DB`: Define el nombre del contenedor.
+- `docker.io/library/mariadb`: Indica al contenedor que debe usar la imagen de mariadb.
+
+### Instalación de herramientas útiles
 
 - Entrar al contenedor:
 
@@ -40,15 +48,15 @@ apt-get update
 apt-get install vim mysql-client
 ```
 
-### Utils
+### Comandos útiles
 
-Stop and delete:
+Detiene y elimina contenedor:
 
 ```sh
 podman stop imageGallery_DB && podman rm imageGallery_DB
 ```
 
-Delete volume:
+ELimina volumen:
 
 ```sh
 podman volume rm imageGallery_volumen
@@ -58,12 +66,9 @@ podman volume rm imageGallery_volumen
 
 ## Conexión
 
-Para conectarse se utiliza el comando `mysql` y se especifica el protocolo para poder conectarse al contenedor.
-Para conectarse desde fuera del contenedor:
+Para conectarse a la base de datos se utiliza el comando `mysql` y se especifica el protocolo para poder conectarse al contenedor.
 
-```sh
-mysql --protocol=TCP -u <user> -p
-```
+> Si en la configuración se cambia el puerto por defecto o el host se tienen que especificar con `-P <port>` y `-h <host>`.
 
 Para conectarse desde dentro del contenedor:
 
@@ -71,11 +76,16 @@ Para conectarse desde dentro del contenedor:
 mysql -u <user> -p
 ```
 
-> Si en la configuración se cambia el puerto por defecto o el host se tienen que especificar con `-P <port>` y `-h <host>`.
+Para conectarse desde fuera del contenedor:
+
+```sh
+mysql --protocol=TCP -u <user> -p
+```
 
 ---
 
 ## Links
 
+- [mariaDB dockerHub](https://hub.docker.com/_/mariadb)
 - [mariaDB container](https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/)
 - [mariaDB container environments](https://mariadb.com/kb/en/mariadb-server-docker-official-image-environment-variables/)

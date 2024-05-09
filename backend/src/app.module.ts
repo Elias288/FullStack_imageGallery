@@ -11,7 +11,7 @@ import { TagModule } from './tag/tag.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env.development'],
+      envFilePath: ['.env.development.local', '.env.development', '.env'],
       isGlobal: true,
     }),
     UsersModule,
