@@ -43,6 +43,7 @@ En el se encontrará:
 - `PORT`: El puerto de la API.
 - `SECRET`: La variable secret para la generación del JWT.
 - `OWNER_TOKEN`: token que permite acciones únicas para el administrador.
+- `CORS_ORIGIN`: Host habilitados para acceder a la API.
 - `DB_HOST`: Host de la base de datos.
 - `DB_USER`: El usuario que utilizará la API para acceder a la base de datos.
 - `DB_PASSWORD`: Contraseña del usuario.
