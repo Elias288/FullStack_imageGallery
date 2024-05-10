@@ -1,4 +1,4 @@
 {
   "cSpell.words": ["logueado", "mariadb", "typeorm"],
-  "conventionalCommits.scopes": ["Backend"]
+  "conventionalCommits.scopes": ["Backend", "Frontend"]
 }
