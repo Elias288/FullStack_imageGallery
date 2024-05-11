@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAccessContext } from "../../utils/useAccessContext";
 import LoaderComponent from "../../components/Loader/Loader.component";
+import HeaderComponent from "../../components/Header/Header.component";
 import "./Login.css";
 
 function LoginPage() {
@@ -31,7 +32,7 @@ function LoginPage() {
 
       {!accessState.isLoading && (
         <>
-          <h1>Login</h1>
+          <HeaderComponent title="Login" />
           {accessState.message !== "" && <p>{accessState.message}</p>}
 
           <form onSubmit={onSubmit}>

@@ -1,18 +1,10 @@
-import { useAccessContext } from "../../utils/useAccessContext";
+import HeaderComponent from "../../components/Header/Header.component";
 import "./Home.css";
 
 function HomePage() {
-  const { accessDispatch } = useAccessContext();
-
-  const signOut = () => {
-    accessDispatch({ type: "signOut" });
-  };
-
   return (
     <div className="HomePage">
-      <h1>Home</h1>
-
-      <button onClick={signOut}>Logout</button>
+      <HeaderComponent title="Home" showNavBar />
     </div>
   );
 }
