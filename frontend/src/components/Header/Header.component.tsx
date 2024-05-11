@@ -1,7 +1,7 @@
-import { useAccessContext } from "../../utils/useAccessContext";
 import SVGMenu from "../../assets/menu-svgrepo-com.svg";
-import "./Header.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./Header.css";
 
 interface HeaderComponentProps {
   title: string;
@@ -16,7 +16,7 @@ function HeaderComponent({ title, showNavBar = false }: HeaderComponentProps) {
     <div className="HeaderComponent">
       <div>
         <h1>{title}</h1>
-        <span>v0.0.3</span>
+        <span>v0.0.4</span>
       </div>
 
       {showNavBar && <NavBar />}
@@ -25,21 +25,22 @@ function HeaderComponent({ title, showNavBar = false }: HeaderComponentProps) {
 }
 
 const NavBar = () => {
-  const { accessDispatch } = useAccessContext();
   const [showNavBarContent, setShowNavBarContent] = useState(false);
 
   const toggleMenu = () => setShowNavBarContent(!showNavBarContent);
   const closeMenu = () => setShowNavBarContent(false);
 
-  const signOut = () => {
-    accessDispatch({ type: "signOut" });
-  };
   return (
     <div className="NavBar">
       <img className="menuIcon" src={SVGMenu} onClick={toggleMenu} />
 
       <div className={`NavBarContent ${showNavBarContent ? "show" : ""}`}>
-        <button onClick={signOut}>Logout</button>
+        <Link to={"/home"} onClick={closeMenu}>
+          Home
+        </Link>
+        <Link to={"/logout"} onClick={closeMenu}>
+          Logout
+        </Link>
       </div>
     </div>
   );
