@@ -49,4 +49,10 @@
         position: initial;
         min-height: fit-content;
     }
+
+    .NavBar .NavBarContent>* {
+        display: inline-block;
+        width: fit-content;
+        margin-right: 1.5rem;
+    }
 }

@@ -3,6 +3,7 @@ import LoginPage from "./pages/Login/Login.page";
 import NotFoundPage from "./pages/NotFound/NotFound.page";
 import { useAccessContext } from "./utils/useAccessContext";
 import HomePage from "./pages/Home/Home.page";
+import UploadFilePage from "./pages/UploadFile/UploadFile.page";
 import { useEffect } from "react";
 
 function App() {
@@ -15,6 +16,14 @@ function App() {
           element={
             <RequireAccess>
               <HomePage />
+            </RequireAccess>
+          }
+        />
+        <Route
+          path="/uploadFile"
+          element={
+            <RequireAccess>
+              <UploadFilePage />
             </RequireAccess>
           }
         />

@@ -16,7 +16,7 @@ function HeaderComponent({ title, showNavBar = false }: HeaderComponentProps) {
     <div className="HeaderComponent">
       <div>
         <h1>{title}</h1>
-        <span>v0.0.4</span>
+        <span>v0.0.5</span>
       </div>
 
       {showNavBar && <NavBar />}
@@ -37,6 +37,9 @@ const NavBar = () => {
       <div className={`NavBarContent ${showNavBarContent ? "show" : ""}`}>
         <Link to={"/home"} onClick={closeMenu}>
           Home
+        </Link>
+        <Link to={"/uploadFile"} onClick={closeMenu}>
+          Upload file
         </Link>
         <Link to={"/logout"} onClick={closeMenu}>
           Logout
